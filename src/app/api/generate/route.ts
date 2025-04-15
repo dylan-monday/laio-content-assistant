@@ -1,4 +1,6 @@
 import { OpenAI } from "openai";
+import { buildPrompt } from "@/lib/promptBuilder";
+
 
 export const runtime = "edge";
 
@@ -19,8 +21,8 @@ export async function POST(req: Request) {
       },
       {
         role: "user",
-        content: prompt,
-      },
+        content: buildPrompt(prompt),
+    },
     ],
   });
 
