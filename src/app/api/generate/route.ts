@@ -2,7 +2,7 @@ import { OpenAI } from "openai";
 import { buildPrompt } from "@/lib/promptBuilder";
 
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,

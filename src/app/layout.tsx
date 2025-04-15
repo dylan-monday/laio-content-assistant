@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export const metadata = {
   title: "LA.IO Write",
   description: "A custom brand voice assistant for LA.IO",
