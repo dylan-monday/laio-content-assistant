@@ -1,44 +1,30 @@
-import { OpenAI } from "openai";
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
 import { buildPrompt } from "@/lib/promptBuilder";
 
-
-export const runtime = "nodejs";
+export const runtime = "nodejs"; // Can also be 'edge' if you've set that up
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
 export async function POST(req: Request) {
-  const { prompt } = await req.json();
+  try {
+    const { input } = await req.json();
 
-  const stream = await openai.chat.completions.create({
-    model: "gpt-4",
-    stream: true,
-    messages: [
-      {
-        role: "system",
-        content: "You are a helpful, on-brand writing assistant.",
-      },
-      {
-        role: "user",
-        content: buildPrompt(prompt),
-    },
-    ],
-  });
+    const prompt = buildPrompt(input);
 
-  const encoder = new TextEncoder();
-  const readable = new ReadableStream({
-    async start(controller) {
-      for await (const chunk of stream) {
-        controller.enqueue(encoder.encode(chunk.choices[0]?.delta?.content || ""));
-      }
-      controller.close();
-    },
-  });
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+    });
 
-  return new Response(readable, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-    },
-  });
+    const response = completion.choices[0]?.message?.content ?? "No response.";
+
+    return NextResponse.json({ result: response });
+  } catch (error) {
+    console.error("API Error:", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
 }
