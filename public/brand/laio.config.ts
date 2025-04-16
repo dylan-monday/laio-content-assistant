@@ -1,5 +1,3 @@
-// redeploy test
-
 import fs from "fs";
 import path from "path";
 
@@ -13,5 +11,4 @@ export const brandVoice = {
   examples: fs.readFileSync(brandPath("sample-copy.md"), "utf-8"),
   taboo: fs.readFileSync(brandPath("taboo-list.md"), "utf-8"),
   overview: fs.readFileSync(brandPath("brand-overview.md"), "utf-8"),
-
 };
