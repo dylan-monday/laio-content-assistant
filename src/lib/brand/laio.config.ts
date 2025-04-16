@@ -1,8 +1,11 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const brandPath = (file: string) =>
-  path.join(process.cwd(), "src", "lib", "brand", file);
+// Resolve directory reliably
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const brandPath = (file: string) => path.join(__dirname, file);
+
 
 export const brandVoice = {
   name: "LA.IO",
