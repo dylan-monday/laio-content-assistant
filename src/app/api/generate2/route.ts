@@ -1,3 +1,5 @@
+// Trigger rebuild: Apr 15
+
 // File: src/app/api/generate2/route.ts
 
 export const runtime = "nodejs";
