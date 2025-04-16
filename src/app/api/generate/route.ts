@@ -1,10 +1,14 @@
 import { OpenAI } from "openai";
 import { buildPrompt } from "@/lib/promptBuilder";
 
-export const runtime = "nodejs"; // ✅ This is critical
+export const runtime = "nodejs";
 
 console.log("OPENAI_API_KEY present:", Boolean(process.env.OPENAI_API_KEY));
 
+if (!process.env.OPENAI_API_KEY) {
+  console.error("❌ OPENAI_API_KEY is missing");
+  throw new Error("OPENAI_API_KEY not set in environment variables.");
+}
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
