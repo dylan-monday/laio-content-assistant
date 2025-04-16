@@ -3,6 +3,9 @@ import { buildPrompt } from "@/lib/promptBuilder";
 
 export const runtime = "nodejs"; // ✅ This is critical
 
+console.log("OPENAI_API_KEY present:", Boolean(process.env.OPENAI_API_KEY));
+
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
