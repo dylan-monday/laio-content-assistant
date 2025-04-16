@@ -1,0 +1,8 @@
+{
+    "functions": {
+      "api/generate/route.ts": {
+        "runtime": "nodejs18.x"
+      }
+    }
+  }
+  
