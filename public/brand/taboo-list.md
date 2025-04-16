@@ -5,6 +5,7 @@
 - "Down here"
 - "Unexpected"
 - "Bayou"
+- "Bayou State"
 - Excessive exclamation points
 - Excessive emojis
 - Louisiana cultural clichés
