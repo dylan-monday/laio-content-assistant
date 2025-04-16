@@ -13,7 +13,7 @@ export default function ChatUI() {
     setResponse("");
 
     try {
-      const res = await fetch("/api/generate", {
+      const res = await fetch("/api/generate2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
