@@ -5,46 +5,58 @@ import { useState } from "react";
 export default function ChatUI() {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function handleSubmit() {
-    setResponse(""); // Clear old response
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: input }),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setResponse("");
 
-    const reader = res.body?.getReader();
-    const decoder = new TextDecoder();
-    let finalText = "";
+    try {
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: input }),
+      });
 
-    while (true) {
-      const { value, done } = await reader!.read();
-      if (done) break;
-      finalText += decoder.decode(value);
-      setResponse(finalText);
+      if (!res.ok) {
+        throw new Error("Request failed");
+      }
+
+      const data = await res.text();
+      setResponse(data);
+    } catch (err) {
+      console.error("Error:", err);
+      setResponse("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <textarea
         placeholder="What do you want to write?"
+        className="w-full p-3 border border-gray-300 rounded-md text-black"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="w-full p-3 border border-gray-300 rounded-md text-black"
       />
+
       <button
-        onClick={handleSubmit}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="submit"
+        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+        disabled={loading || !input.trim()}
       >
-        Generate
+        {loading ? "Generating..." : "Generate"}
       </button>
+
       {response && (
-        <div className="bg-gray-100 text-black p-4 rounded-lg mt-4 whitespace-pre-wrap">
+        <div className="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50 text-black whitespace-pre-wrap">
           {response}
         </div>
       )}
-    </div>
+    </form>
   );
 }
