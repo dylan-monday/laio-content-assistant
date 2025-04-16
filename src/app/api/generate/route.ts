@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
 import { buildPrompt } from "@/lib/promptBuilder";
 
-export const runtime = "nodejs"; // Not "edge" — ensures Node API support
+export const runtime = "nodejs"; // ✅ This is critical
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -29,7 +29,9 @@ export async function POST(req: Request) {
   const readable = new ReadableStream({
     async start(controller) {
       for await (const chunk of stream) {
-        controller.enqueue(encoder.encode(chunk.choices[0]?.delta?.content || ""));
+        controller.enqueue(
+          encoder.encode(chunk.choices[0]?.delta?.content || "")
+        );
       }
       controller.close();
     },
