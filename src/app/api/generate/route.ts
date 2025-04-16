@@ -1,16 +1,16 @@
 import { OpenAI } from "openai";
 import { buildPrompt } from "@/lib/promptBuilder";
 
-export const runtime = "nodejs"; // Ensure this is NOT "edge"
+export const runtime = "nodejs"; // Required for compatibility with fs/path/etc
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
-export async function POST(req: Request): Promise<Response> {
+export async function POST(req: Request) {
   const { prompt } = await req.json();
 
-  const response = await openai.chat.completions.create({
+  const stream = await openai.chat.completions.create({
     model: "gpt-4",
     stream: true,
     messages: [
@@ -26,17 +26,18 @@ export async function POST(req: Request): Promise<Response> {
   });
 
   const encoder = new TextEncoder();
-
-  const stream = new ReadableStream({
+  const readable = new ReadableStream({
     async start(controller) {
-      for await (const chunk of response) {
-        controller.enqueue(encoder.encode(chunk.choices[0]?.delta?.content || ""));
+      for await (const chunk of stream) {
+        controller.enqueue(
+          encoder.encode(chunk.choices[0]?.delta?.content || "")
+        );
       }
       controller.close();
     },
   });
 
-  return new Response(stream, {
+  return new Response(readable, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
     },
