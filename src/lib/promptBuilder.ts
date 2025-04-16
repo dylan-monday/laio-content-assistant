@@ -1,4 +1,4 @@
-import { brandVoice } from "../../public/brand/laio.config";
+import { brandVoice } from "@/brand/laio.config";
 
 export function buildPrompt(userPrompt: string): string {
   return `
