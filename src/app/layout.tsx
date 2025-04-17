@@ -15,6 +15,9 @@ const karla = Karla({
 
 export const metadata = {
   title: "LA.IO Content Assistant",
+  icons: {
+    icon: "/images/favicon.png",
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
