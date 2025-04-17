@@ -106,7 +106,7 @@ export default function ChatUI() {
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
       <textarea
-  placeholder="What do you want to write?"
+  placeholder="What can I help you write?"
   className="w-full p-3 border border-gray-300 rounded-md text-black shadow-md focus:shadow-lg transition-shadow"
   value={input}
   onChange={(e) => setInput(e.target.value)}
