@@ -105,17 +105,17 @@ export default function ChatUI() {
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <textarea
-          placeholder="What do you want to write?"
-          className="w-full p-3 border border-gray-300 rounded-md text-black"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
+      <textarea
+  placeholder="What do you want to write?"
+  className="w-full p-3 border border-gray-300 rounded-md text-black shadow-md focus:shadow-lg transition-shadow"
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+/>
 
         <div className="flex items-center gap-4">
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+            className="bg-[#07233C] hover:bg-[#0a2e4f] text-white font-bold py-2 px-4 rounded disabled:opacity-50"
             disabled={loading || !input.trim()}
           >
             {loading ? "Generating..." : "Generate"}
@@ -177,6 +177,22 @@ export default function ChatUI() {
           </div>
         ))}
       </div>
+
+      {/* Branded footer */}
+      <footer className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl text-center">
+  <a
+    href="https://mondayandpartners.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block bg-[#18181d] text-white text-[7pt] px-4 py-1 rounded-sm font-karla"
+  >
+    <span className="tracking-widest">A Creativity Product From</span>
+    <span className="inline-block w-2" /> 
+    <span className="font-extrabold tracking-[0.5em]">MONDAY </span>
+    <span className="font-normal tracking-[0.5em]">+ PARTNERS</span>
+  </a>
+</footer>
+
     </>
   );
 }

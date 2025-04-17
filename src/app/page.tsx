@@ -14,7 +14,9 @@ export default function Home() {
         />
       </div>
 
-      <h1 className="text-3xl font-bold mb-6 text-center">LA.IO Writing Assistant</h1>
+      <h1 className="text-[14pt] font-extrabold uppercase text-center mb-6 text-[#929497] tracking-[0.15em]">
+  LA.IO Content Assistant
+</h1>
 
       <ChatUI />
     </main>

@@ -1,7 +1,5 @@
-// src/app/layout.tsx
-
 import "./globals.css";
-import { Roboto } from "next/font/google";
+import { Roboto, Karla } from "next/font/google";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -9,19 +7,20 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 
+const karla = Karla({
+  subsets: ["latin"],
+  weight: ["400", "800"],
+  variable: "--font-karla",
+});
+
 export const metadata = {
   title: "LA.IO Content Assistant",
-  description: "A custom brand voice assistant for LA.IO",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={roboto.variable}>
-      <body>{children}</body>
+    <html lang="en" className={`${roboto.variable} ${karla.variable}`}>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

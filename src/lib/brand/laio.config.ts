@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 const brandPath = (file: string) =>
-  path.join(process.cwd(), "public", "brand", file);
+  path.join(process.cwd(), "src", "lib", "brand", file); // <- correct path
 
 export const brandVoice = {
   name: "LA.IO",
