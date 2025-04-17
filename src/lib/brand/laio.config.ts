@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 const brandPath = (file: string) => {
-  path.join(process.cwd(), "public", "brand", file); // 👈 points to /public now
+  const fullPath = path.join(process.cwd(), "public", "brand", file);
   console.log("🔍 Looking for brand file at:", fullPath);
   return fullPath;
 };
