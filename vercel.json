@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/generate2/route.ts": {
+    "src/app/api/generate2/route.ts": {
       "includeFiles": "src/lib/brand/**"
     }
   }
