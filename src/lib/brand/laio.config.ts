@@ -1,8 +1,11 @@
 import fs from "fs";
 import path from "path";
 
-const brandPath = (file: string) =>
-  path.join(process.cwd(), "src", "lib", "brand", file); // <- correct path
+const brandPath = (file: string) => {
+  const fullPath = path.join(process.cwd(), "src", "lib", "brand", file);
+  console.log("🔍 Looking for brand file at:", fullPath);
+  return fullPath;
+};
 
 export const brandVoice = {
   name: "LA.IO",
